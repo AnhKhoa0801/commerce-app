@@ -7,6 +7,7 @@ import {
   CssBaseline,
   ThemeProvider,
 } from "@mui/material";
+import { Outlet } from "react-router-dom";
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -16,9 +17,9 @@ function App() {
   const theme = createTheme({
     palette: {
       mode: paletteType,
-      background:{
-        default : paletteType === "light" ? "#eaeaea" :"#121212"
-      }
+      background: {
+        default: paletteType === "light" ? "#eaeaea" : "#121212",
+      },
     },
   });
 
@@ -31,7 +32,7 @@ function App() {
       <CssBaseline />
       <Header darkMode={darkMode} handleThemeChange={setThemeChange} />
       <Container>
-        <Catalog />
+        <Outlet />
       </Container>
     </ThemeProvider>
   );
