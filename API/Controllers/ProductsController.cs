@@ -1,13 +1,12 @@
 using API.Data;
 using API.Entities;
+using API.ExceptionHandle;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers;
 
-[Route("api/[controller]")]
-[ApiController]
-public class ProductsController : ControllerBase
+public class ProductsController : BaseApiController
 {
     private readonly StoreContext _context;
 
@@ -30,7 +29,7 @@ public class ProductsController : ControllerBase
 
         if (product == null)
         {
-            return NotFound();
+            throw new NotFoundException("Product not found");
         }
 
         return Ok(product);
