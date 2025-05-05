@@ -16,18 +16,18 @@ public class ProductsController : BaseApiController
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
+    public async Task<IActionResult> GetProducts()
     {
         var products = await _context.Products.ToListAsync();
         return Ok(products);
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<Product>> GetProduct(int id)
+    public async Task<IActionResult> GetProduct(int id)
     {
         var product = await _context.Products.FindAsync(id);
 
-        if (product == null)
+        if (product is null)
         {
             throw new NotFoundException("Product not found");
         }
