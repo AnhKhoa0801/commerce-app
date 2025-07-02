@@ -11,5 +11,5 @@ import { router } from "./app/router/Routes.tsx";
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <RouterProvider router={router} />
-  </StrictMode>
+  </StrictMode>,
 );

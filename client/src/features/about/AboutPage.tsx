@@ -40,7 +40,7 @@ export default function AboutPage() {
           color="primary"
           onClick={() =>
             agent.TestErrors.getValidationError().catch((error) =>
-              console.log(error)
+              console.log(error),
             )
           }
         >
