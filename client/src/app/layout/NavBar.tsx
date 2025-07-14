@@ -1,4 +1,4 @@
-import { ShoppingCart } from "@mui/icons-material";
+import { DarkMode, LightMode, ShoppingCart } from "@mui/icons-material";
 import {
   AppBar,
   Badge,
@@ -6,7 +6,6 @@ import {
   IconButton,
   List,
   ListItem,
-  Switch,
   Toolbar,
   Typography,
 } from "@mui/material";
@@ -40,9 +39,9 @@ const navStyles = {
   },
 };
 
-export default function Header({ darkMode, handleThemeChange }: Props) {
+export default function NavBar({ darkMode, handleThemeChange }: Props) {
   return (
-    <AppBar position="static" sx={{ mb: 4 }}>
+    <AppBar position="static">
       <Toolbar
         sx={{
           display: "flex",
@@ -51,11 +50,12 @@ export default function Header({ darkMode, handleThemeChange }: Props) {
         }}
       >
         <Box>
-          <Typography variant="h6" component={NavLink} to="/" sx={navStyles}>
+          <Typography variant="h4" component={NavLink} to="/" sx={navStyles}>
             re-store
           </Typography>
-
-          <Switch checked={darkMode} onChange={handleThemeChange} />
+          <IconButton onClick={handleThemeChange} color="inherit">
+            {darkMode ? <DarkMode /> : <LightMode sx={{ color: "yellow" }} />}
+          </IconButton>
         </Box>
 
         <List sx={{ display: "flex" }}>
