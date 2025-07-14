@@ -3,7 +3,7 @@ import { Product } from "../../app/models/product";
 
 export const catalogApi = createApi({
   reducerPath: "catalogApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000/api" }),
+  baseQuery: fetchBaseQuery({ baseUrl: "https://localhost:5000/api" }),
   endpoints: (builder) => ({
     fetchProducts: builder.query<Product[], void>({
       query: () => ({ url: "products" }),
