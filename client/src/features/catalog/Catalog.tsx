@@ -1,20 +1,13 @@
-import agent from "../../app/api/agent";
-import { Product } from "./../../app/models/product";
+import { useFetchProductsQuery } from "./catalogApi";
 import ProductList from "./ProductList";
-import { useEffect, useState } from "react";
 
 export default function Catalog() {
-  const [products, setProducts] = useState<Product[]>([]);
+  const { data, isLoading } = useFetchProductsQuery();
 
-  useEffect(() => {
-    agent.Catalog.list().then((response) => {
-      setProducts(response);
-    });
-  }, []);
-
+  if (isLoading || !data) return <div>Loading...</div>;
   return (
     <>
-      <ProductList products={products} />
+      <ProductList products={data} />
     </>
   );
 }

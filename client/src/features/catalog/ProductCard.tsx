@@ -37,7 +37,7 @@ export default function ProductCard({ product }: Props) {
         <Typography
           variant="subtitle2"
           gutterBottom
-          sx={{ color: "secondary.main", textTransform: "uppercase" }}
+          sx={{ textTransform: "uppercase" }}
         >
           {product.name}
         </Typography>
