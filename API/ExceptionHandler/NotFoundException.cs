@@ -1,6 +1,6 @@
 using System;
 
-namespace API.ExceptionHandle;
+namespace API.ExceptionHandler;
 
 public class NotFoundException : Exception
 {

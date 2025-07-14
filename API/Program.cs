@@ -1,6 +1,5 @@
 using API.Data;
-using API.ExceptionHandle;
-using API.Middleware;
+using API.ExceptionHandler;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,14 +16,12 @@ builder.Services.AddDbContext<StoreContext>(options =>
 builder.Services.AddCors();
 
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddProblemDetails();
 
 var app = builder.Build();
 
-app.UseExceptionHandler(_ => { });
+app.UseExceptionHandler();
 
-//app.UseMiddleware<ExceptionMiddleware>();
-
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

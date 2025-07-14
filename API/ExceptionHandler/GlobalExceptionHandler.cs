@@ -4,7 +4,7 @@ using System.Text.Json;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
-namespace API.ExceptionHandle;
+namespace API.ExceptionHandler;
 
 public class GlobalExceptionHandler : IExceptionHandler
 {

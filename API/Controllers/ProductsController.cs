@@ -1,6 +1,6 @@
 using API.Data;
 using API.Entities;
-using API.ExceptionHandle;
+using API.ExceptionHandler;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 

@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Catalog from "../../features/catalog/Catalog";
 import Header from "./Header";
 import {
   Container,
