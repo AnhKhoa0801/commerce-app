@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using System.Net;
 using System.Text.Json;
 using Microsoft.AspNetCore.Diagnostics;
@@ -6,16 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.ExceptionHandler;
 
-public class GlobalExceptionHandler : IExceptionHandler
+public class GlobalExceptionHandler(ILogger<GlobalExceptionHandler> logger, IHostEnvironment env)
+	: IExceptionHandler
 {
-	private readonly ILogger<GlobalExceptionHandler> _logger;
-	private readonly IHostEnvironment _env;
-
-	public GlobalExceptionHandler(ILogger<GlobalExceptionHandler> logger, IHostEnvironment env)
-	{
-		_logger = logger;
-		_env = env;
-	}
 	public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
 	{
 
@@ -33,9 +25,9 @@ public class GlobalExceptionHandler : IExceptionHandler
 				problemDetails.Extensions.Add("message", exception.Message);
 				break;
 			default:
-				_logger.LogError(exception, exception.Message);
+				logger.LogError(exception, exception.Message);
 				problemDetails.Status = (int)HttpStatusCode.InternalServerError;
-				problemDetails.Detail = _env.IsDevelopment() ? exception.StackTrace : null;
+				problemDetails.Detail = env.IsDevelopment() ? exception.StackTrace : null;
 				problemDetails.Title = "Internal Server Error";
 				break;
 		}

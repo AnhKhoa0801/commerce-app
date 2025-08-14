@@ -4,35 +4,24 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Middleware;
 
-public class ExceptionMiddleware
+public class ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddleware> logger, IHostEnvironment env)
 {
-	private readonly RequestDelegate _next;
-	private readonly ILogger<ExceptionMiddleware> _logger;
-	private readonly IHostEnvironment _env;
-
-	public ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddleware> logger, IHostEnvironment env)
-	{
-		_next = next;
-		_logger = logger;
-		_env = env;
-	}
-
 	public async Task InvokeAsync(HttpContext context)
 	{
 		try
 		{
-			await _next(context);
+			await next(context);
 		}
 		catch (Exception ex)
 		{
-			_logger.LogError(ex, ex.Message);
+			logger.LogError(ex, ex.Message);
 			context.Response.ContentType = "application/json";
 			context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
 			var response = new ProblemDetails
 			{
 				Status = (int)HttpStatusCode.InternalServerError,
-				Detail = _env.IsDevelopment() ? ex.StackTrace?.ToString() : null,
+				Detail = env.IsDevelopment() ? ex.StackTrace : null,
 				Title = ex.Message
 			};
 
@@ -44,6 +33,8 @@ public class ExceptionMiddleware
 			var json = JsonSerializer.Serialize(response, options);
 
 			await context.Response.WriteAsync(json);
+			
+			
 		}
 	}
 }
