@@ -1,6 +1,4 @@
-import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Product } from "../../app/models/product";
 import {
   Button,
   Divider,
@@ -13,21 +11,16 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import agent from "../../app/api/agent";
+import { useFetchProductDetailsQuery } from "./catalogApi";
 
 export default function ProductDetails() {
   const { id } = useParams<{ id: string }>();
-  const [product, setProduct] = useState<Product | null>(null);
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    agent.Catalog.details(Number(id))
-      .then((res) => setProduct(res))
-      .catch((error) => console.log(error))
-      .finally(() => setLoading(false));
-  }, [id]);
+  const { data: product, isLoading } = useFetchProductDetailsQuery(
+    id ? +id : 0,
+  );
 
-  if (loading) return <>Loading....</>;
+  if (isLoading) return <>Loading....</>;
 
   if (!product) return <>Product not found</>;
 

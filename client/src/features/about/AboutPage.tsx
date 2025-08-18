@@ -1,7 +1,18 @@
 import { Button, ButtonGroup, Container, Typography } from "@mui/material";
-import agent from "../../app/api/agent";
+import {
+  useLazyGet400ErrorQuery,
+  useLazyGet401ErrorQuery,
+  useLazyGet404ErrorQuery,
+  useLazyGet500ErrorQuery,
+  useLazyGetValidationErrorQuery,
+} from "./errorApi";
 
 export default function AboutPage() {
+  const [get400Error] = useLazyGet400ErrorQuery();
+  const [get404Error] = useLazyGet404ErrorQuery();
+  const [get401Error] = useLazyGet401ErrorQuery();
+  const [get500Error] = useLazyGet500ErrorQuery();
+  const [getValidationError] = useLazyGetValidationErrorQuery();
   return (
     <Container>
       <Typography gutterBottom variant="h2">
@@ -11,47 +22,35 @@ export default function AboutPage() {
         <Button
           variant="contained"
           color="primary"
-          onClick={() =>
-            agent.TestErrors.get404Error().catch((error) => console.log(error))
-          }
-        >
-          404 Error
-        </Button>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() =>
-            agent.TestErrors.get400Error().catch((error) => console.log(error))
-          }
+          onClick={() => get400Error()}
         >
           400 Error
         </Button>
         <Button
           variant="contained"
           color="primary"
-          onClick={() =>
-            agent.TestErrors.get401Error().catch((error) => console.log(error))
-          }
+          onClick={() => get404Error()}
+        >
+          404 Error
+        </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => get401Error()}
         >
           401 Error
         </Button>
         <Button
           variant="contained"
           color="primary"
-          onClick={() =>
-            agent.TestErrors.getValidationError().catch((error) =>
-              console.log(error),
-            )
-          }
+          onClick={() => getValidationError()}
         >
           Validation Error
         </Button>
         <Button
           variant="contained"
           color="primary"
-          onClick={() =>
-            agent.TestErrors.get500Error().catch((error) => console.log(error))
-          }
+          onClick={() => get500Error()}
         >
           500 Error
         </Button>
